@@ -1,18 +1,24 @@
 <html ng-app="AppModule">
-  <head>
-      <meta charset="UTF-8"/>
-      <!--<base href="/">-->
-      <title>YoloTEAM - Random Apps</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
-      <link rel="stylesheet" href="node_modules/angular/angular-csp.css"/>
-      <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-      <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
-  </head>
-  <body ng-controller="index.controller">
-      <header></header>
-      <ng-view></ng-view>
 
-      <!-- Scripts -->
-      <script type="text/javascript" src="./app.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <!--<base href="/">-->
+  <title>YoloTEAM - Random Apps</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <link rel="stylesheet" href="node_modules/angular/angular-csp.css" />
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body ng-controller="index.controller">
+  <header></header>
+  <div class="container-fluid">
+    <ui-view></ui-view>
+  </div>
+
+
+  <!-- Scripts -->
+  <script type="text/javascript" src="./app.js"></script>
+</body>
+
 </html>
