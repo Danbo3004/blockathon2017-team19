@@ -7,7 +7,6 @@ export default ()=> {return {
     },
     template: `<img width="100%"></img>`,
     link: (scope, elm, attrs) => {
-        console.log(elm);
         qrCode.toDataURL(scope.content || '' ,  {
             errorCorrectionLevel: 'H',
             type: 'image/jpeg',

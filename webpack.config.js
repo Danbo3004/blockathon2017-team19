@@ -13,11 +13,14 @@ module.exports = {
       { from: './app/index.html', to: "index.html" }
     ])
   ],
+  node: {
+    fs: 'empty',
+  },
   module: {
     rules: [
       {
-       test: /\.css$/,
-       use: [ 'style-loader', 'css-loader' ]
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
     ],
     loaders: [

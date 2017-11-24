@@ -5,6 +5,13 @@ export default ($stateProvider, $urlRouterProvider) => {
         .state('home', {
             url: '',
             controller: 'home.controller as $ctrl',
-            templateUrl: 'app/home/home.html'
+            templateUrl: 'app/home/home.html',
+            resolve: {}
+        })
+        .state('scan', {
+            url: '/scan',
+            controller: 'scan.controller as $ctrl',
+            templateUrl: 'app/scan/scan.html',
+            resolve: {}
         })
 }
