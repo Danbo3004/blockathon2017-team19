@@ -1,18 +1,36 @@
-<div id="header">
-    <strong>Header</strong>
-</div>
-<div class="container">
-    <div class="col-sm-12"><a href="#" class="btn btn-primary">Just Test</a></div>
-    <div class="btn-group" uib-dropdown is-open="status.isopen">
-            <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-              Button dropdown <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-              <li role="menuitem"><a href="#">Action</a></li>
-              <li role="menuitem"><a href="#">Another action</a></li>
-              <li role="menuitem"><a href="#">Something else here</a></li>
-              <li class="divider"></li>
-              <li role="menuitem"><a href="#">Separated link</a></li>
-            </ul>
-          </div>
-</div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" ng-click="$ctrl.isNavCollapsed = !$ctrl.isNavCollapsed" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">YoloREWARD</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" uib-collapse="$ctrl.isNavCollapsed">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#"><span class="fa fa-university"></span> My Wallet <span class="sr-only">(current)</span></a></li>
+        <li><a href="#"><span class="fa fa-paper-plane"></span> Chuyển Point</a></li>
+        <li class="dropdown" uib-dropdown>
+          <a href="#" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-map-o"></span> Voucher <span class="caret"></span></a>
+          <ul class="dropdown-menu" uib-dropdown-menu>
+            <li><a href="#">Use Voucher</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Create Voucher</a></li>
+            <li><a href="#">Voucher Management</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="fa fa-gg-circle"></span> 123.5</a></li>
+        <li><a href="#"><span class="fa fa-refresh"></span> </a></li>
+        <li><a href="#" class="text-uppercase"><span class="fa fa-sign-out"></span> Sign Out</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
