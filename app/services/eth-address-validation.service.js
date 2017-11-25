@@ -1,6 +1,8 @@
+import web3 from 'web3';
+
 export default class EthAddressValidation {
     constructor() {
-
+        this.web3Instance = new web3();
     }
 
     /**
@@ -33,7 +35,8 @@ export default class EthAddressValidation {
     isChecksumAddress(address) {
         // Check each case
         address = address.replace('0x', '');
-        var addressHash = sha3(address.toLowerCase());
+        var addressHash = this.web3Instance.sha3(address.toLowerCase());
+        console.log('address hash', addressHash);
         for (var i = 0; i < 40; i++) {
             // the nth letter should be uppercase if the nth digit of casemap is 1
             if ((parseInt(addressHash[i], 16) > 7 && address[i].toUpperCase() !== address[i]) || (parseInt(addressHash[i], 16) <= 7 && address[i].toLowerCase() !== address[i])) {
