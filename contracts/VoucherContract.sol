@@ -1,28 +1,32 @@
 pragma solidity ^0.4.18;
 
 import "node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol";
-import "./YolCoin.sol";
+import "./MetaCoin.sol";
 
 contract YoloTEAMTokenInterface {
-    function balanceOf(address _owner) view public returns (uint256);
+    function balanceOf(address _owner) public returns (uint256);
     function transfer(address _to, uint256 _value) public returns (bool);
-    function transferFrom(address _from, address _to, uint256 _value) public returns (bool);
+    function transferFrom(address _owner, address _to, uint256 _value) public returns (bool);
+    event Transfer(address indexed _from, address indexed _to, uint256 _value);
 }
 
 contract VoucherContract is Ownable {
-    YoloTEAMTokenInterface YolCoin1;
+    YoloTEAMTokenInterface YolCoin;
     
-    address public YolNetwork;
-    
+    address public YolCoinAddr;
+    address public VoucherAddr;
+
     enum Stages {
         Active,
         Expired,
         Used
     }
+    
+    event state(uint _s);
 
     struct Voucher {
         uint256 _timeStamp;
-        uint _expryDay;
+        uint _expryTime;
         uint _amount;
         bytes32 _secretHash;
         Stages _status;
@@ -31,59 +35,54 @@ contract VoucherContract is Ownable {
     mapping(address => Voucher[]) vouchers;
 
     function createVoucher(uint _amount, uint _exday, uint _number) public {
-        YolCoin yol;
         bytes32 hash = keccak256(_number, msg.sender);
         var newVoucher = Voucher(now, _exday, _amount, hash, Stages.Active);
-        yol.transfer(this, _amount);
+        YolCoin.transferFrom(msg.sender, VoucherAddr, _amount);
         vouchers[msg.sender].push(newVoucher);
     }
 
-    function getVoucher(uint _index) constant returns (uint _amount, bytes32 _hash, Stages _status) {
-        return (vouchers[msg.sender][_index]._amount, vouchers[msg.sender][_index]._secretHash, vouchers[msg.sender][_index]._status);
+    function getVoucher(uint _index) constant returns (uint _amount, uint256 _secretHash, Stages _status) {
+        if (now >= (uint(vouchers[address(msg.sender)][_index]._timeStamp) + 30 days)) {
+                vouchers[msg.sender][_index]._status = Stages.Expired;
+        }
+        return (vouchers[msg.sender][_index]._amount, uint256(vouchers[msg.sender][_index]._secretHash), vouchers[msg.sender][_index]._status);
     }
 
     function myVoucher() constant returns (uint){
         return vouchers[msg.sender].length;
     }
     
-    function redeem(uint256 _of, uint256 _hash) constant returns (bool){
-        if (_of == _hash) {return false;}
-        uint i;
-        for(i=0; i<vouchers[address(_of)].length - 1; i++){
-            if (vouchers[address(_of)][i]._secretHash != bytes32(_hash)) {return false;}
-            if (now >= (uint(vouchers[address(_of)][i]._timeStamp) + 0 days)) {
-                vouchers[msg.sender][i]._status = Stages.Expired;
-                return false;
-            }
+    function redeem(address _of, uint256 _hash) constant returns (bool){
+        if (_of == msg.sender) {return false;}
+        if (now >= (uint(vouchers[address(_of)][_hash]._timeStamp) + 30 days)) {
+            vouchers[address(_of)][_hash]._status = Stages.Expired;
+            return false;
         }
         
-        YolCoin1.transferFrom(this, msg.sender, vouchers[address(_of)][i]._amount);
-        vouchers[msg.sender][i]._status = Stages.Used;
+        YolCoin.transferFrom(VoucherAddr, msg.sender, vouchers[address(_of)][_hash]._amount);
+        vouchers[address(_of)][_hash]._status = Stages.Used;
         return true;
     }
     
     function balanceOf(address _owner) view public returns (uint256 balance) {
-        return YolCoin1.balanceOf(_owner);
+        return YolCoin.balanceOf(_owner);
     }
     
-    function setNetwork(address _network) returns(address){
-        YolNetwork = _network;
-        YolCoin1 = YoloTEAMTokenInterface(_network);
-        return YolCoin1;
+    function setYolCoinAddr(address _network) returns(address){
+        YolCoinAddr = _network;
+        YolCoin = YoloTEAMTokenInterface(_network);
+        return YolCoinAddr;
     }
     
-    function burnVoucher(uint256 _of, uint256 _hash) constant returns (bool){
-        uint i;
-        for(i=0; i<vouchers[address(_of)].length - 1; i++){
-            if (vouchers[address(_of)][i]._secretHash != bytes32(_hash)) {return false;}
-        }
+    function setVoucherAddr(address _network) returns(address){
+        VoucherAddr = _network;
+        return VoucherAddr;
+    }
+    
+    function burnVoucher(uint256 _hash) constant returns (bool){
+        if (vouchers[msg.sender][_hash]._status != Stages.Expired) { return false; }
         
-       
-        if (vouchers[address(_of)][i]._status == Stages.Expired) {
-            YolCoin1.transferFrom(this, address(_of), vouchers[address(_of)][i]._amount);
-            return true;
-        }
-        
+        YolCoin.transferFrom(VoucherAddr, msg.sender, vouchers[msg.sender][_hash]._amount);
         return true;
     }
 }
