@@ -1,0 +1,31 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">Send your point to an address</div>
+    <div class="panel-body">
+        <form name="form" ng-submit="$ctrl.submit()">
+            <div class="form-group">
+                <label for="address">Email address</label>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="fa fa-university"></span>
+                    </span>
+                    <input type="text" ng-model="$ctrl.payload.address" required name="address" class="form-control" id="address" is-eth-address placeholder="Wallet Address of receiver. Ex: 0x21091d08aadf75ca...">
+                    <span class="input-group-addon" ng-click="$ctrl.openCamera()">
+                        <span class="fa fa-qrcode" title="Use camera to scan QRCode and get address"></span>
+                    </span>
+                </div>
+                <p ng-show="form.address.$touched && form.address.$error.ethAddress" class="text-danger">The address is invalid.</p>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="fa fa-gg-circle"></span>
+                    </span>
+                    <input required="true" type="number" ng-model="$ctrl.payload.amount" min="0.000000001" name="amount" required class="form-control" id="amount" placeholder="The amount of YOL which you want to send">
+                </div>
+                <p ng-show="form.amount.$touched && $ctrl.payload.amount <= 0" class="text-danger">The amount is invalid.</p>
+            </div>
+            <button class="btn btn-default" ng-disabled="form.$invalid && $ctrl.submitting" ng-click="$ctrl.submit()">Submit</button>
+        </form>
+    </div>
+</div>

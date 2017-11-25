@@ -1,0 +1,38 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" ng-click="$ctrl.isNavCollapsed = !$ctrl.isNavCollapsed" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">YoloREWARD</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" uib-collapse="$ctrl.isNavCollapsed">
+      <ul class="nav navbar-nav">
+        <li ui-sref-active="active"><a href="#" ui-sref="home"><span class="fa fa-university"></span> My Wallet <span class="sr-only">(current)</span></a></li>
+        <li ui-sref-active="active"><a href="#" ui-sref="send-point"><span class="fa fa-paper-plane"></span> Send Point</a></li>
+        <li ui-sref-active="active" class="dropdown" uib-dropdown>
+          <a href="#" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-map-o"></span> Voucher <span class="caret"></span></a>
+          <ul class="dropdown-menu" uib-dropdown-menu>
+            <li><a href="#">Use Voucher</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Create Voucher</a></li>
+            <li><a href="#">Voucher Management</a></li>
+          </ul>
+        </li>
+        <li ui-sref-active="active"><a href="#" ui-sref="scan"><span class="fa fa-qrcode"></span> SCAN</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="fa fa-bell"></span></a></li>
+        <li><a href="#"><span class="fa fa-gg-circle"></span> 123.5</a></li>
+        <li><a href="#"><span class="fa fa-refresh"></span> </a></li>
+        <li><a href="#" class="text-uppercase"><span class="fa fa-sign-out"></span> Sign Out</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

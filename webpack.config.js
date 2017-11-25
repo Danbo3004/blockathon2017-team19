@@ -2,7 +2,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './app/javascripts/app.js',
+  entry: './app/app.module.js',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'app.js'
@@ -13,11 +13,14 @@ module.exports = {
       { from: './app/index.html', to: "index.html" }
     ])
   ],
+  node: {
+    fs: 'empty',
+  },
   module: {
     rules: [
       {
-       test: /\.css$/,
-       use: [ 'style-loader', 'css-loader' ]
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
     ],
     loaders: [
