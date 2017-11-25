@@ -16,5 +16,14 @@ export default ($stateProvider, $urlRouterProvider) => {
             url: '/send-point/:address?amount',
             controller: 'send-point.controller as $ctrl',
             templateUrl: 'app/send-point/send-point.html'
+        })
+        .state('voucher', {
+            url: '/voucher'
+        })
+        .state('voucher.list', {
+            url: '/list'
+        })
+        .state('voucher.create', {
+            url: '/create'
         });
 }
