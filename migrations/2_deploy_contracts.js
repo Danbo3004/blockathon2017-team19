@@ -1,8 +1,9 @@
-var ConvertLib = artifacts.require("./ConvertLib.sol");
-var MetaCoin = artifacts.require("./MetaCoin.sol");
+var YolCoin = artifacts.require("./YolCoin.sol");
+var StandardToken = artifacts.require("./StandardToken.sol");
+var VoucherContract = artifacts.require("./VoucherContract.sol");
 
-module.exports = function(deployer) {
-  deployer.deploy(ConvertLib);
-  deployer.link(ConvertLib, MetaCoin);
-  deployer.deploy(MetaCoin);
+module.exports = function (deployer) {
+  deployer.deploy(YolCoin);
+  deployer.deploy(StandardToken);
+  deployer.deploy(VoucherContract);
 };
