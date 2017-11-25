@@ -1,12 +1,11 @@
 export default class SendPoint {
-    constructor(ethAddressValidation) {
+    constructor(ethAddressValidation, $stateParams) {
         this.ethAddressValidation = ethAddressValidation;
-
+        console.log($stateParams);
         this.payload = {
-            address: '',
-            amount: ''
+            address: $stateParams.address || '',
+            amount: parseFloat($stateParams.amount) || ''
         };
-        console.log('from send point controller');
     }
 
     isValidAddress (address) {
@@ -26,4 +25,4 @@ export default class SendPoint {
 
 }
 
-SendPoint.$inject = ['ethAddressValidation'];
+SendPoint.$inject = ['ethAddressValidation', '$stateParams'];

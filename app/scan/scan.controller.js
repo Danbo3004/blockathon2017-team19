@@ -1,9 +1,12 @@
 import Instascan from 'instascan';
+import { isNumber } from 'util';
 
 export default class ScanController {
-    constructor(messageDecoder, $scope) {
+    constructor(messageDecoder, $scope, $state) {
         this.messageDecoder = messageDecoder;
+        this.$state = $state;
         this.tryQrcodeFailed = false;
+        this.decodedMessage = null;
         this.getCameras();
 
         this.$scope = $scope;
@@ -17,9 +20,10 @@ export default class ScanController {
         let self = this;
         self.scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
         self.scanner.addListener('scan', function (content) {
-            self.processMessage(content);
+            self.stopCamera();
+            self.processMessage(content); 
         });
-    
+
         Instascan.Camera.getCameras().then(function (cameras) {
             console.log('camera', cameras);
             if (cameras.length > 0) {
@@ -37,13 +41,33 @@ export default class ScanController {
         this.currentCamera && this.scanner.stop(this.currentCamera);
     }
 
+    tryAgain() {
+        this.tryQrcodeFailed = false;
+        this.getCameras();
+    }
+
     processMessage(message) {
         console.log('message', message);
         const decodedMessage = this.messageDecoder.decode(message);
         if (!decodedMessage) {
-            this.tryQrcodeFailed = true;
+            this.$scope.$apply(() => {
+                this.tryQrcodeFailed = true;
+            })
+
+        } else {
+            this.$scope.$apply(() => {
+                this.decodedMessage = decodedMessage;
+            })
+
         }
+    }
+
+    send() {
+        this.$state.go('send-point', {
+            address: this.decodedMessage.address, 
+            amount: this.decodedMessage.data
+        });
     }
 }
 
-ScanController.$inject = ['messageDecoder', '$scope'];
+ScanController.$inject = ['messageDecoder', '$scope', '$state'];

@@ -13,7 +13,7 @@ export default ($stateProvider, $urlRouterProvider) => {
             templateUrl: 'app/scan/scan.html'
         })
         .state('send-point', {
-            url: '/send-point',
+            url: '/send-point/:address?amount',
             controller: 'send-point.controller as $ctrl',
             templateUrl: 'app/send-point/send-point.html'
         });

@@ -1,7 +1,6 @@
 class IsEthAddress {
     constructor(ethAddressValidator) {
         this.ethAddressValidator = ethAddressValidator;
-        console.log(ethAddressValidator);
         this.restrict = 'A';
         this.require = 'ngModel';
     }
