@@ -29,9 +29,9 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="fa fa-bell"></span></a></li>
-        <li><a href="#"><span class="fa fa-gg-circle"></span> 123.5</a></li>
-        <li><a href="#"><span class="fa fa-refresh"></span> </a></li>
-        <li><a href="#" class="text-uppercase"><span class="fa fa-sign-out"></span> Sign Out</a></li>
+        <li><a href="#"><span class="fa fa-gg-circle"></span> {{$ctrl.balance}}</a></li>
+        <li><a href="#" ng-click="$ctrl.loadBalance()"><span class="fa fa-refresh"></span> </a></li>
+        <li><a href="#" class="text-uppercase" ng-click="$ctrl.logout()"><span class="fa fa-sign-out"></span> Sign Out</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

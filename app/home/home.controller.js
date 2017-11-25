@@ -1,20 +1,22 @@
 import qrCode from 'qrcode';
 
 export default class HomeController {
-    constructor(qrcodeGenerator) {
+    constructor(qrcodeGenerator, yoloUser, $scope) {
         this.qrcodeGenerator = qrcodeGenerator;
+        this.yoloUser = yoloUser;
         this.loadWallet();
         this.loadLastTransactions();
+        this.$scope = $scope;
     }
 
     loadWallet() {
-        this.wallet = {
-            address: '0x4ba5db882bdbe90ee1a91790d6d4f24efbaa41ea',
-            balance: 120.5,
-            name: 'Ta Quang Phong'
-        }
-        this.qrcodeContent = this.qrcodeGenerator.info(this.wallet.address, this.wallet.name);
-        console.log('content', this.qrcodeContent);
+        let self = this;
+        self.yoloUser.getWallet().then((wallet)=> {
+            self.$scope.$apply(()=> {
+                self.wallet = wallet;
+                self.qrcodeContent = self.qrcodeGenerator.info(self.wallet.address, self.wallet.name);
+            });
+        });
     }
 
     loadLastTransactions() {
@@ -51,4 +53,4 @@ export default class HomeController {
     }
 }
 
-HomeController.$inject = ['qrcodeGenerator'];
+HomeController.$inject = ['qrcodeGenerator', 'yoloUser', '$scope'];

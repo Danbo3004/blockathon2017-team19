@@ -25,5 +25,10 @@ export default ($stateProvider, $urlRouterProvider) => {
         })
         .state('voucher.create', {
             url: '/create'
+        })
+        .state('login', {
+            url: '/login',
+            controller: 'login.controller as $ctrl',
+            templateUrl: 'app/login/login.html'
         });
 }
