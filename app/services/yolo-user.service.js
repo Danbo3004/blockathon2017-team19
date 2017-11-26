@@ -1,4 +1,5 @@
-import metaCoinAbi from '../../build/contracts/MetaCoin.json';
+import metaCoinAbi from '../../build/contracts/YolCoin.json';
+import voucherContractAbi from '../../build/contracts/VoucherContract.json';
 import { default as contract } from 'truffle-contract'
 
 export default class YoloUserService {
@@ -10,6 +11,19 @@ export default class YoloUserService {
 
         this.metaCoinContract = contract(metaCoinAbi);
         this.metaCoinContract.setProvider(this.web3.currentProvider);
+
+        this.voucherContract = contract(voucherContractAbi);
+        this.voucherContract.setProvider(this.web3.currentProvider);
+        this.voucherContract.deployed().then((instance)=> {
+            return instance.createVoucher.call(1,1,1, {from: '0xa2fa30b9e8609969b8d3a3e625ef5b88e0c19c3c'})
+        }).then((result)=> {
+            console.log('voucher', result.toNumber());
+        });
+        this.voucherContract.deployed().then((instance)=> {
+            return instance.myVoucher.call({from: this.currentUser.address})
+        }).then((result)=> {
+            console.log('voucher', result.toNumber());
+        });
     }
 
     getCurrentUser() {

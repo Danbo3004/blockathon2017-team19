@@ -3,7 +3,7 @@ export default ($stateProvider, $urlRouterProvider) => {
 
     $stateProvider
         .state('home', {
-            url: '',
+            url: '/',
             controller: 'home.controller as $ctrl',
             templateUrl: 'app/home/home.html'
         })

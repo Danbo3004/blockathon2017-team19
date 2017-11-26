@@ -28,8 +28,9 @@
         <li ui-sref-active="active"><a href="#" ui-sref="scan"><span class="fa fa-qrcode"></span> SCAN</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+          <li ui-sref-active="active"><a href="#" ui-sref="login"><span class="fa fa-exchange"></span> Switch User</a></li>
         <li><a href="#"><span class="fa fa-bell"></span></a></li>
-        <li><a href="#"><span class="fa fa-gg-circle"></span> {{$ctrl.balance}}</a></li>
+        <li><a href="#"><span class="fa fa-gg-circle"></span> {{$ctrl.balance | currency: '': '0'}}</a></li>
         <li><a href="#" ng-click="$ctrl.loadBalance()"><span class="fa fa-refresh"></span> </a></li>
         <li><a href="#" class="text-uppercase" ng-click="$ctrl.logout()"><span class="fa fa-sign-out"></span> Sign Out</a></li>
       </ul>

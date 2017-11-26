@@ -5,7 +5,7 @@ export default {
         network: '*'
     },
     'default_user': {
-        address: '0x9514078528f3223d1dfe048fe5fa912ca5119304',
+        address: '0xa2fa30b9e8609969b8d3a3e625ef5b88e0c19c3c',
         name: 'Ta Quang Phong'
     }
 }

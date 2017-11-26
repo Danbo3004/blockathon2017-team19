@@ -1,3 +1,5 @@
+import Web3 from 'web3';
+
 export default class Web3Service {
     constructor(appConfig) {
         this.appConfig = appConfig;
@@ -5,9 +7,11 @@ export default class Web3Service {
     }
 
     getInstance() {
+        console.log(web3);
         if ( ! this.web3) {
             const ethNodeConfig = this.appConfig.ETH_NODE;
-            this.web3 = new Web3(new Web3.providers.HttpProvider(`http://${ethNodeConfig.host}:${ethNodeConfig.port}`));
+            //this.web3 = new Web3(new Web3.providers.HttpProvider(`http://${ethNodeConfig.host}:${ethNodeConfig.port}`));
+            this.web3 = new Web3(web3.currentProvider);
         }
         return this.web3;
     }
